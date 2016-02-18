@@ -1,37 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Web.Mvc;
 using TrendTwice.Models;
 using TrendTwice.Services;
 
 namespace TrendTwice.Controllers
 {
-    [RoutePrefix("api")]
-    public class ProductsController : ApiController
+    //[RoutePrefix("api")]
+    public class ProductsController : Controller
     {
         ProductsRepository _repository = new ProductsRepository();
 
         [HttpGet]
-        [Route("listings")]
-        public IHttpActionResult GetAll()
+        
+        public ActionResult GetAll()
         {
-            return Ok(_repository.GetAllListings());
+            return View(_repository.GetAllListings());
         }
 
         [HttpGet]
-        [Route("listings/{id}")]
-        public IHttpActionResult GetListing(int id)
+        
+        public ActionResult Listing(int id)
         {
             Sale sale = _repository.GetListingById(id);
             if (sale == null)
             {
-                return NotFound();
+                return Content("Item not found");
             }
 
-            return Ok(sale);
+            return View(sale);
         }
     }
 }
