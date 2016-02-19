@@ -14,6 +14,7 @@ namespace TrendTwice.Models
 
         public virtual DbSet<Checkout> Checkout { get; set; }
         public virtual DbSet<Dress> Dress { get; set; }
+        public virtual DbSet<DressCategories> DressCategories { get; set; }
         public virtual DbSet<DressColors> DressColors { get; set; }
         public virtual DbSet<DressConditions> DressConditions { get; set; }
         public virtual DbSet<DressFabric> DressFabric { get; set; }
@@ -23,7 +24,6 @@ namespace TrendTwice.Models
         public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
-        public virtual DbSet<DressCategories> DressCategories { get; set; }
         public virtual DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -35,6 +35,11 @@ namespace TrendTwice.Models
             modelBuilder.Entity<Dress>()
                 .HasMany(e => e.Listings)
                 .WithRequired(e => e.Dress)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DressCategories>()
+                .HasMany(e => e.Dress)
+                .WithRequired(e => e.DressCategories)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DressColors>()

@@ -17,7 +17,7 @@ namespace TrendTwice.Controllers
         // GET: Dress
         public ActionResult Index()
         {
-            var dress = db.Dress.Include(d => d.DressColors).Include(d => d.DressConditions).Include(d => d.DressFabric).Include(d => d.DressPhotos).Include(d => d.DressSize);
+            var dress = db.Dress.Include(d => d.DressCategories).Include(d => d.DressColors).Include(d => d.DressConditions).Include(d => d.DressFabric).Include(d => d.DressPhotos).Include(d => d.DressSize);
             return View(dress.ToList());
         }
 
@@ -39,11 +39,15 @@ namespace TrendTwice.Controllers
         // GET: Dress/Create
         public ActionResult Create()
         {
+            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name");
             ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name");
             ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name");
             ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name");
             ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path");
             ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name");
+            ViewBag.Gender = new SelectList(new List<SelectListItem>()
+            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            }, "Value", "Text");
             return View();
         }
 
@@ -61,11 +65,15 @@ namespace TrendTwice.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
             ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
             ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
             ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);
             ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path", dress.Id);
             ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name", dress.SizeId);
+            ViewBag.Gender = new SelectList(new List<SelectListItem>()
+            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            }, "Value", "Text");
             return View(dress);
         }
 
@@ -81,6 +89,7 @@ namespace TrendTwice.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
             ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
             ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
             ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);
@@ -102,6 +111,7 @@ namespace TrendTwice.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
             ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
             ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
             ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);

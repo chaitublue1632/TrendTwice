@@ -217,7 +217,7 @@
     <Compile Include="Models\DressSize.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Listings.cs" />
-    <Compile Include="Models\Model5.cs" />
+    <Compile Include="Models\Model6.cs" />
     <Compile Include="Models\Payments.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\sysdiagrams.cs" />

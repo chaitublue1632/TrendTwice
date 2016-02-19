@@ -37,6 +37,8 @@ namespace TrendTwice.Models
 
         public string Name { get; set; }
 
+        public virtual DressCategories DressCategories { get; set; }
+
         public virtual DressColors DressColors { get; set; }
 
         public virtual DressConditions DressConditions { get; set; }
