@@ -8,12 +8,19 @@ namespace TrendTwice.Services
 {
     public class ProductsRepository
     {
-        public List<Listings> GetAllListings()
+        public IEnumerable<Sale> GetAllListings()
         {
-            List<Listings> allListings = null;
+            List<Sale> allListings = null;
             using (dbModel model = new dbModel())
             {
-                allListings = model.Listings.ToList();
+                allListings = model.Listings.Select(y => new Sale
+                {
+                    Price = y.Dress.Price,
+                    Color = y.Dress.DressColors.Name,
+                    ListingId = y.ListingId,
+                    Size = y.Dress.DressSize.Name,
+                    Condition = y.Dress.DressConditions.Name
+                }).ToList();
             }
             return allListings;
         }
@@ -23,11 +30,13 @@ namespace TrendTwice.Services
             Sale listing = null;
             using (dbModel model = new dbModel())
             {
-                listing = model.Listings.Where(item => item.ListingId == itemId).Select(y => new Sale{
+                listing = model.Listings.Where(item => item.ListingId == itemId).Select(y => new Sale
+                {
                     Price = y.Dress.Price,
                     Color = y.Dress.DressColors.Name,
                     ListingId = y.ListingId,
-                    Size = y.Dress.DressSize.Name
+                    Size = y.Dress.DressSize.Name,
+                    Condition = y.Dress.DressConditions.Name
                 }).FirstOrDefault();
             }
             return listing;

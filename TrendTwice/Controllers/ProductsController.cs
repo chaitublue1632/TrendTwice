@@ -12,15 +12,13 @@ namespace TrendTwice.Controllers
     {
         ProductsRepository _repository = new ProductsRepository();
 
-        [HttpGet]
-        
+        [HttpGet]        
         public ActionResult GetAll()
         {
             return View(_repository.GetAllListings());
         }
 
-        [HttpGet]
-        
+        [HttpGet]        
         public ActionResult Listing(int id)
         {
             Sale sale = _repository.GetListingById(id);

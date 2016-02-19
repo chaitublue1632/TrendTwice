@@ -8,24 +8,22 @@ namespace TrendTwice.Models
     public partial class dbModel : DbContext
     {
         public dbModel()
-            : base("name=Model3")
+            : base("name=Model")
         {
-            this.Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Checkout> Checkout { get; set; }
         public virtual DbSet<Dress> Dress { get; set; }
         public virtual DbSet<DressColors> DressColors { get; set; }
         public virtual DbSet<DressConditions> DressConditions { get; set; }
+        public virtual DbSet<DressFabric> DressFabric { get; set; }
         public virtual DbSet<DressPhotos> DressPhotos { get; set; }
         public virtual DbSet<DressSize> DressSize { get; set; }
         public virtual DbSet<Listings> Listings { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<UserAddress> UserAddress { get; set; }
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<WishList> WishList { get; set; }
         public virtual DbSet<DressCategories> DressCategories { get; set; }
-        public virtual DbSet<DressFabric> DressFabric { get; set; }
         public virtual DbSet<Payments> Payments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -42,6 +40,16 @@ namespace TrendTwice.Models
             modelBuilder.Entity<DressColors>()
                 .HasMany(e => e.Dress)
                 .WithRequired(e => e.DressColors)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DressConditions>()
+                .HasMany(e => e.Dress)
+                .WithRequired(e => e.DressConditions)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<DressFabric>()
+                .HasMany(e => e.Dress)
+                .WithRequired(e => e.DressFabric)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DressSize>()

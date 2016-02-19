@@ -9,15 +9,22 @@ namespace TrendTwice.Models
     [Table("DressFabric")]
     public partial class DressFabric
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DressFabric()
+        {
+            Dress = new HashSet<Dress>();
+        }
+
         [Key]
-        [Column(Order = 0)]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int FabricId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dress> Dress { get; set; }
     }
 }

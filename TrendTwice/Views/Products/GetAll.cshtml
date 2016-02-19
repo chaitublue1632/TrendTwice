@@ -1,0 +1,17 @@
+﻿@model  IEnumerable<TrendTwice.Models.Sale>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var listing in Model)
+{
+     <p>
+     Condition:  @listing.Condition
+         <br />
+     Price: @listing.Price
+         <br />
+     Size: @listing.Size
+     </p> 
+}

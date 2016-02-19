@@ -1,0 +1,98 @@
+﻿@model TrendTwice.Models.Dress
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Dress</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DressColors.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DressColors.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DressConditions.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DressConditions.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DressFabric.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DressFabric.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DressPhotos.Path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DressPhotos.Path)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DressSize.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DressSize.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PieceCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PieceCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

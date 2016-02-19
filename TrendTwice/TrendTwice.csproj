@@ -198,6 +198,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DressController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -216,7 +217,7 @@
     <Compile Include="Models\DressSize.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Listings.cs" />
-    <Compile Include="Models\Model3.cs" />
+    <Compile Include="Models\Model5.cs" />
     <Compile Include="Models\Payments.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
@@ -302,6 +303,12 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Products\Listing.cshtml" />
+    <Content Include="Views\Products\GetAll.cshtml" />
+    <Content Include="Views\Dress\Create.cshtml" />
+    <Content Include="Views\Dress\Delete.cshtml" />
+    <Content Include="Views\Dress\Details.cshtml" />
+    <Content Include="Views\Dress\Edit.cshtml" />
+    <Content Include="Views\Dress\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

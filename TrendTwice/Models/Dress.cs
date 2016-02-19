@@ -27,7 +27,7 @@ namespace TrendTwice.Models
 
         [Required]
         [StringLength(50)]
-        public string Sex { get; set; }
+        public string Gender { get; set; }
 
         public int FabricId { get; set; }
 
@@ -38,6 +38,10 @@ namespace TrendTwice.Models
         public string Name { get; set; }
 
         public virtual DressColors DressColors { get; set; }
+
+        public virtual DressConditions DressConditions { get; set; }
+
+        public virtual DressFabric DressFabric { get; set; }
 
         public virtual DressSize DressSize { get; set; }
 

@@ -8,6 +8,12 @@ namespace TrendTwice.Models
 
     public partial class DressConditions
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DressConditions()
+        {
+            Dress = new HashSet<Dress>();
+        }
+
         [Key]
         public int ConditionId { get; set; }
 
@@ -17,5 +23,8 @@ namespace TrendTwice.Models
         public string Description { get; set; }
 
         public bool IsActive { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Dress> Dress { get; set; }
     }
 }
