@@ -4,8 +4,7 @@ using System.Linq;
 using System.Web;
 
 namespace TrendTwice.Models
-{
-    
+{    
     public class Sale
     {
         public int ListingId { get; set; }

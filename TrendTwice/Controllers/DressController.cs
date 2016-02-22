@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrendTwice.Models;
+using TrendTwice.ViewModels;
 
 namespace TrendTwice.Controllers
 {
@@ -17,7 +18,12 @@ namespace TrendTwice.Controllers
         // GET: Dress
         public ActionResult Index()
         {
-            var dress = db.Dress.Include(d => d.DressCategories).Include(d => d.DressColors).Include(d => d.DressConditions).Include(d => d.DressFabric).Include(d => d.DressPhotos).Include(d => d.DressSize);
+            var dress = db.Dress.Include(d => d.DressCategories).
+                                 Include(d => d.DressColors).
+                                 Include(d => d.DressConditions).
+                                 Include(d => d.DressFabric).
+                                 Include(d => d.DressPhotos).
+                                 Include(d => d.DressSize);
             return View(dress.ToList());
         }
 
@@ -39,16 +45,17 @@ namespace TrendTwice.Controllers
         // GET: Dress/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name");
-            ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name");
-            ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name");
-            ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name");
-            ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path");
-            ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name");
-            ViewBag.Gender = new SelectList(new List<SelectListItem>()
+            DressViewModel viewModel = new DressViewModel();
+            viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
+            viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
+            viewModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", viewModel.FabricId);
+            viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
+            viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
+            viewModel.Genders = new SelectList(new List<SelectListItem>()
             { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
-            }, "Value", "Text");
-            return View();
+            }, "Value", "Text", viewModel.Gender);
+
+            return View(viewModel);
         }
 
         // POST: Dress/Create
@@ -56,25 +63,59 @@ namespace TrendTwice.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,SizeId,ColorId,CategoryId,Price,Gender,FabricId,ConditionId,PieceCount,Name")] Dress dress)
+        public ActionResult Create(DressViewModel dressModel)
         {
+
             if (ModelState.IsValid)
             {
-                db.Dress.Add(dress);
+                Dress newDress = new Dress
+                {
+                    CategoryId = dressModel.CategoryId,
+                    ConditionId = dressModel.ConditionId,
+                    FabricId = dressModel.FabricId,
+                    ColorId = dressModel.ColorId,
+                    SizeId = dressModel.SizeId,
+                    Name = dressModel.Name,
+                    Price = dressModel.Price,
+                    Gender = dressModel.Gender,
+                    PieceCount = dressModel.PieceCount
+                };
+
+                db.Dress.Add(newDress);
                 db.SaveChanges();
+
+                int identityVal = newDress.Id;
+
+                if(identityVal > 0)
+                {
+                    Listings newListing = new Listings
+                    {
+                        Active = true,
+                        DressId = identityVal,
+                        UserId = 1000,
+                        Status = 1,
+                        Likes = 0,
+                        CreatedDate = DateTime.Now
+                    };
+
+                    db.Listings.Add(newListing);
+                    db.SaveChanges();
+                }
+
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
-            ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
-            ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
-            ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);
-            ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path", dress.Id);
-            ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name", dress.SizeId);
-            ViewBag.Gender = new SelectList(new List<SelectListItem>()
+            DressViewModel viewModel = new DressViewModel();
+            viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
+            viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
+            viewModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", viewModel.FabricId);
+            viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
+            viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
+            viewModel.Genders = new SelectList(new List<SelectListItem>()
             { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
-            }, "Value", "Text");
-            return View(dress);
+            }, "Value", "Text", viewModel.Gender);
+
+            return View(viewModel);
         }
 
         // GET: Dress/Edit/5
@@ -89,13 +130,26 @@ namespace TrendTwice.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
-            ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
-            ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
-            ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);
-            ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path", dress.Id);
-            ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name", dress.SizeId);
-            return View(dress);
+
+            DressViewModel viewModel = new DressViewModel();
+            viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
+            viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
+            viewModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", viewModel.FabricId);
+            viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
+            viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
+            viewModel.Genders = new SelectList(new List<SelectListItem>()
+            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            }, "Value", "Text", dress.Gender);
+            viewModel.Id = dress.Id;
+            viewModel.CategoryId = dress.CategoryId;
+            viewModel.ConditionId = dress.ConditionId;
+            viewModel.FabricId = dress.FabricId;
+            viewModel.ColorId = dress.ColorId;
+            viewModel.Price = dress.Price;
+            viewModel.PieceCount = dress.PieceCount;
+            viewModel.Gender = dress.Gender;
+
+            return View(viewModel);
         }
 
         // POST: Dress/Edit/5
@@ -103,21 +157,40 @@ namespace TrendTwice.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,SizeId,ColorId,CategoryId,Price,Gender,FabricId,ConditionId,PieceCount,Name")] Dress dress)
+        public ActionResult Edit(DressViewModel dressViewModel)
         {
             if (ModelState.IsValid)
             {
+                Dress dress = new Dress
+                {
+                    Id = dressViewModel.Id,
+                    CategoryId = dressViewModel.CategoryId,
+                    ConditionId = dressViewModel.ConditionId,
+                    FabricId = dressViewModel.FabricId,
+                    ColorId = dressViewModel.ColorId,
+                    SizeId = dressViewModel.SizeId,
+                    Name = dressViewModel.Name,
+                    Price = dressViewModel.Price,
+                    Gender = dressViewModel.Gender,
+                    PieceCount = dressViewModel.PieceCount
+                };
+
                 db.Entry(dress).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.CategoryId = new SelectList(db.DressCategories, "CategoryId", "Name", dress.CategoryId);
-            ViewBag.ColorId = new SelectList(db.DressColors, "ColorId", "Name", dress.ColorId);
-            ViewBag.ConditionId = new SelectList(db.DressConditions, "ConditionId", "Name", dress.ConditionId);
-            ViewBag.FabricId = new SelectList(db.DressFabric, "FabricId", "Name", dress.FabricId);
-            ViewBag.Id = new SelectList(db.DressPhotos, "DressId", "Path", dress.Id);
-            ViewBag.SizeId = new SelectList(db.DressSize, "SizeId", "Name", dress.SizeId);
-            return View(dress);
+
+            DressViewModel viewModel = new DressViewModel();
+            viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
+            viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
+            viewModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", viewModel.FabricId);
+            viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
+            viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
+            viewModel.Genders = new SelectList(new List<SelectListItem>()
+            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            }, "Value", "Text", viewModel.Gender);
+            viewModel.Id = dressViewModel.Id;
+            return View(viewModel);
         }
 
         // GET: Dress/Delete/5

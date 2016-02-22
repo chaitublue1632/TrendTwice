@@ -1,4 +1,4 @@
-﻿@model TrendTwice.Models.Dress
+﻿@model TrendTwice.ViewModels.DressViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -11,7 +11,7 @@
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" style="display:none">
         <h4>Dress</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -26,23 +26,23 @@
         <div class="form-group">
             @Html.LabelFor(model => model.SizeId, "Size", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SizeId", null, "Select", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.SizeId, Model.Sizes, "Select", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.SizeId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ColorId, "Color", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ColorId", null, "Select", htmlAttributes: new { @class = "form-control" })
+            <div class="col-md-10">                  
+                @Html.DropDownListFor(x => x.ColorId, Model.Colors, "Select", htmlAttributes: new { @class = "form-control"})         
                 @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryId", null, "Select", htmlAttributes: new { @class = "form-control" })
+            <div class="col-md-10">                
+                @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select", htmlAttributes: new { @class = "form-control" })                
                 @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,15 +51,14 @@
             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Price, "Required", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Gender, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @*@Html.EditorFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })*@
-                @Html.DropDownList("Gender", ViewBag.Gender as SelectList, "Select", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.Gender, Model.Genders, "Select", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -67,7 +66,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.FabricId, "FabricId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FabricId", null, "Select", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.FabricId, Model.Fabrics, "Select", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.FabricId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,7 +74,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.ConditionId, "ConditionId", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("ConditionId", null, "Select", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(x => x.ConditionId, Model.Conditions, "Select", htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.ConditionId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -84,7 +83,8 @@
             @Html.LabelFor(model => model.PieceCount, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.PieceCount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PieceCount, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PieceCount, "Required", new { @class = "text-danger" })
+                
             </div>
         </div>
               
@@ -96,6 +96,200 @@
         </div>
     </div>
 }
+
+<div class="row">
+    <div class="col-md-12">
+
+        <!--      Wizard container        -->
+        <div class="wizard-container">
+
+            <div class="card wizard-card ct-wizard-blue" id="wizard">
+                <form action="" method="">
+                    <!--        You can switch "ct-wizard-orange"  with one of the next bright colors: "ct-wizard-blue", "ct-wizard-green", "ct-wizard-orange", "ct-wizard-red"             -->
+
+                    <div class="wizard-header">
+                        <h3>
+                            <b>BUILD</b> YOUR DRESS <br>
+                            <small>This information will let us know more about your dress.</small>
+                        </h3>
+                    </div>
+                    <ul class="nav nav-pills">
+                        <li class="active"><a href="#details" data-toggle="tab" aria-expanded="true">Details</a></li>
+                        <li><a href="#account" data-toggle="tab">Account</a></li>
+                        <li><a href="#address" data-toggle="tab">Address</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="details">
+                            <div class="row">
+                                <h4 class="info-text"> Let's start with the basic information</h4>
+                                <!--<div class="col-sm-4 col-sm-offset-1">
+                                    <div class="picture-container">
+                                        <div class="picture">
+                                            <img src="/wizard/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
+                                            <input type="file" id="wizard-picture">
+                                        </div>
+                                        <h6>Choose Picture</h6>
+                                    </div>
+                                </div>-->
+                                <div class="col-sm-6 col-sm-offset-3">
+                                    <div class="form-group">
+                                        <!--<label>First Name <small>(required)</small></label>-->
+                                        <input name="title" type="text" class="form-control" placeholder="Title...">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="description" type="text" class="form-control" placeholder="Describe it...">
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="gender" class="form-control">
+                                            <option value="">Select Gender</option>
+                                            <option value="1">Male</option>
+                                            <option value="2">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="category" class="form-control">
+                                            <option value="">Select Category</option>
+                                            <option value="1">Saree</option>
+                                            <option value="2">Kurta</option>
+                                            <option value="3">Lehenga</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="size" class="form-control">
+                                            <option value="">Select Size</option>
+                                            <option value="1">One Size</option>
+                                            <option value="2">Extra Small</option>
+                                            <option value="3">Small</option>
+                                            <option value="4">Medium</option>
+                                            <option value="5">Large</option>
+                                            <option value="6">Extra Large</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="brand" type="text" class="form-control" placeholder="Brand..." />
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="color" type="text" class="form-control" placeholder="Color..." />
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="fabric" class="form-control">
+                                            <option value="">Select Fabric</option>
+                                            <option value="1">Excellent</option>
+                                            <option value="2">Like New</option>
+                                            <option value="3">New</option>
+                                            <option value="4">Good</option>
+                                            <option value="5">Fair</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="fabric" type="text" class="form-control" placeholder="Fabric..." />
+                                    </div>
+                                </div>
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="form-group">
+                                        <input name="email" type="email" class="form-control" placeholder="andrew@creative-tim.com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="account">
+                            <h4 class="info-text"> What are you doing? </h4>
+                            <div class="row">
+                                <div class="col-sm-10 col-sm-offset-1">
+                                    <div class="col-sm-4">
+                                        <div class="choice" data-toggle="wizard-radio">
+                                            <input type="radio" name="job" value="Design">
+                                            <div class="icon">
+                                                <i class="fa fa-pencil"></i>
+                                            </div>
+                                            <h6>Design</h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="choice" data-toggle="wizard-radio">
+                                            <input type="radio" name="job" value="Code">
+                                            <div class="icon">
+                                                <i class="fa fa-terminal"></i>
+                                            </div>
+                                            <h6>Code</h6>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="choice" data-toggle="wizard-radio">
+                                            <input type="radio" name="job" value="Develop">
+                                            <div class="icon">
+                                                <i class="fa fa-laptop"></i>
+                                            </div>
+                                            <h6>Develop</h6>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="address">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h4 class="info-text"> Are you living in a nice area? </h4>
+                                </div>
+                                <div class="col-sm-7 col-sm-offset-1">
+                                    <div class="form-group">
+                                        <labe>
+                                            Street Name
+                                            <input type="text" class="form-control" placeholder="5h Avenue">
+                                        </labe>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Street Number</label>
+                                        <input type="text" class="form-control" placeholder="242">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5 col-sm-offset-1">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        <input type="text" class="form-control" placeholder="New York...">
+                                    </div>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group">
+                                        <label>Country</label><br>
+                                        <select name="country" class="form-control">
+                                            <option value="Afghanistan"> Afghanistan </option>
+                                            <option value="Albania"> Albania </option>
+                                            <option value="Algeria"> Algeria </option>
+                                            <option value="American Samoa"> American Samoa </option>
+                                            <option value="Andorra"> Andorra </option>
+                                            <option value="Angola"> Angola </option>
+                                            <option value="Anguilla"> Anguilla </option>
+                                            <option value="Antarctica"> Antarctica </option>
+                                            <option value="...">...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wizard-footer">
+                        <div class="pull-right">
+                            <input type="button" class="btn btn-next btn-fill btn-warning btn-wd btn-sm" name="next" value="Next">
+                            <input type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" value="Finish" style="display: none;">
+
+                        </div>
+                        <div class="pull-left">
+                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="Previous">
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+
+        </div> <!-- wizard container -->
+    </div>
+</div>
+
 
 <div>
     @Html.ActionLink("Back to List", "Index")
