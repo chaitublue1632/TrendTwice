@@ -18,6 +18,10 @@ namespace TrendTwice
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+                      "~/Scripts/fileinput/fileinput.min.js",
+                      "~/Scripts/respond.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
@@ -25,6 +29,13 @@ namespace TrendTwice
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/custom.css"));
+
+            bundles.Add(new StyleBundle("~/Content/wizard").Include(
+                       "~/Content/wizard/gsdk-base.css"));
+
+            bundles.Add(new StyleBundle("~/Content/fileinput").Include(
+                       "~/Content/fileinput/fileinput.min.css"));
+
         }
     }
 }
