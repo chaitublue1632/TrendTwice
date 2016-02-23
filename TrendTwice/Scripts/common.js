@@ -1,8 +1,8 @@
 ﻿$(document).ready(function () {
 
-    $("#input-id").fileinput();
+    $("#file-1").fileinput();
 
     // with plugin options
-    $("#input-id").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
+    $("#file-1").fileinput({ 'showUpload': false, 'previewFileType': 'any' });
 
 });

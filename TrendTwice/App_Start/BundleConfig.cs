@@ -18,16 +18,17 @@ namespace TrendTwice
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/fileinput/fileinput.min.js",
-                      "~/Scripts/respond.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(                      
+                      "~/Scripts/fileinput/fileinput.min.js",
+                      "~/Scripts/respond.js",
+                      "~/Scripts/common.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css",
+                      "~/Content/Site.css",
                       "~/Content/custom.css"));
 
             bundles.Add(new StyleBundle("~/Content/wizard").Include(
