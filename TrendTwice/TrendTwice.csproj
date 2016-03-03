@@ -206,6 +206,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\FineUpload.cs" />
+    <Compile Include="Infrastructure\FineUploadResult.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Checkout.cs" />
@@ -240,6 +242,17 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\fileinput\fileinput.min.css" />
+    <Content Include="Content\fineuploader\continue.gif" />
+    <Content Include="Content\fineuploader\edit.gif" />
+    <Content Include="Content\fineuploader\fine-uploader-gallery.min.css" />
+    <Content Include="Content\fineuploader\fine-uploader-new.min.css" />
+    <Content Include="Content\fineuploader\fine-uploader.min.css" />
+    <Content Include="Content\fineuploader\fineuploader.css" />
+    <Content Include="Content\fineuploader\loading.gif" />
+    <Content Include="Content\fineuploader\pause.gif" />
+    <Content Include="Content\fineuploader\processing.gif" />
+    <Content Include="Content\fineuploader\retry.gif" />
+    <Content Include="Content\fineuploader\trash.gif" />
     <Content Include="Content\wizard\gsdk-base.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -249,6 +262,7 @@
     <Content Include="Images\3.jpg" />
     <Content Include="Images\5.jpg" />
     <Content Include="index.html" />
+    <Content Include="Infrastructure\readme.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -306,6 +320,9 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\fineuploader\jquery.fine-uploader.js" />
+    <Content Include="Scripts\jquery.fineuploader-3.1.js" />
+    <Content Include="Scripts\jquery.fineuploader-3.1.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -347,7 +364,7 @@
     <Content Include="Views\About\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

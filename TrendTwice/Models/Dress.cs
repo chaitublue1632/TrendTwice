@@ -29,7 +29,7 @@ namespace TrendTwice.Models
         [StringLength(50)]
         public string Gender { get; set; }
 
-        public int FabricId { get; set; }
+        public int? FabricId { get; set; }
 
         public int ConditionId { get; set; }
 

@@ -14,7 +14,7 @@ namespace TrendTwice.ViewModels
         public int CategoryId { get; set; }
         public int SizeId { get; set; }
         public int ColorId { get; set; }
-        public int FabricId { get; set; }
+        public int? FabricId { get; set; }
         public int ConditionId { get; set; }
         [Required]
         [Range(1, double.MaxValue, ErrorMessage = "Please enter valid price")]

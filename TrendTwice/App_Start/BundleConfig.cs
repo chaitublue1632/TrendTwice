@@ -23,6 +23,7 @@ namespace TrendTwice
 
             bundles.Add(new ScriptBundle("~/bundles/fileinput").Include(                      
                       "~/Scripts/fileinput/fileinput.min.js",
+                      "~/Scripts/fineuploader/jquery.fine-uploader.js",
                       "~/Scripts/respond.js",
                       "~/Scripts/common.js"));
 
@@ -35,7 +36,8 @@ namespace TrendTwice
                        "~/Content/wizard/gsdk-base.css"));
 
             bundles.Add(new StyleBundle("~/Content/fileinput").Include(
-                       "~/Content/fileinput/fileinput.min.css"));
+                       "~/Content/fileinput/fileinput.min.css",
+                       "~/Content/fineuploader/fine-uploader-gallery.min.css"));
 
         }
     }

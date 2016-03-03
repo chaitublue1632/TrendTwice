@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TrendTwice.Models;
 using TrendTwice.ViewModels;
+using FineUploader;
 
 namespace TrendTwice.Controllers
 {
@@ -25,6 +27,26 @@ namespace TrendTwice.Controllers
                                  Include(d => d.DressPhotos).
                                  Include(d => d.DressSize);
             return View(dress.ToList());
+        }
+
+        [HttpPost]
+        public FineUploaderResult Index(FineUpload upload, string extraParam1, int extraParam2=0)
+        {
+            // asp.net mvc will set extraParam1 and extraParam2 from the params object passed by Fine-Uploader
+
+            var dir = @"c:\upload\path";
+            var filePath = Path.Combine(dir, upload.Filename);
+            try
+            {
+                upload.SaveAs(filePath);
+            }
+            catch (Exception ex)
+            {
+                return new FineUploaderResult(false, error: ex.Message);
+            }
+
+            // the anonymous object in the result below will be convert to json and set back to the browser
+            return new FineUploaderResult(true, new { extraInformation = 12345 });
         }
 
         // GET: Dress/Details/5
@@ -72,7 +94,7 @@ namespace TrendTwice.Controllers
                 {
                     CategoryId = dressModel.CategoryId,
                     ConditionId = dressModel.ConditionId,
-                    FabricId = dressModel.FabricId,
+                    FabricId = dressModel.FabricId > 0 ? dressModel.FabricId: null,
                     ColorId = dressModel.ColorId,
                     SizeId = dressModel.SizeId,
                     Name = dressModel.Name,
@@ -84,14 +106,15 @@ namespace TrendTwice.Controllers
                 db.Dress.Add(newDress);
                 db.SaveChanges();
 
-                int identityVal = newDress.Id;
+                int newDressId = newDress.Id;
 
-                if(identityVal > 0)
+                if (newDressId > 0)
                 {
                     Listings newListing = new Listings
                     {
+                        ListingId = (db.Listings.Count()) + 1,
                         Active = true,
-                        DressId = identityVal,
+                        DressId = newDressId,
                         UserId = 1000,
                         Status = 1,
                         Likes = 0,
@@ -112,7 +135,8 @@ namespace TrendTwice.Controllers
             viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
             viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
             viewModel.Genders = new SelectList(new List<SelectListItem>()
-            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            {   new SelectListItem{ Text ="Male",   Value = "1"}, 
+                new SelectListItem{ Text ="Female", Value = "2"}
             }, "Value", "Text", viewModel.Gender);
 
             return View(viewModel);

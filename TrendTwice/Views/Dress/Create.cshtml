@@ -10,9 +10,6 @@
 </h3>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
 
@@ -20,170 +17,229 @@
         <div class="wizard-container">
 
            <div class="card wizard-card ct-wizard-blue" id="wizard">
-               <ul class="nav nav-pills">
-                   <li class="active"><a href="#details" data-toggle="tab" aria-expanded="true">Details</a></li>
-                   <li><a href="#account" data-toggle="tab">Photos</a></li>
-                   <li><a href="#address" data-toggle="tab">Review</a></li>
-               </ul> 
-               <div class="tab-content">
-                   <div class="tab-pane active" id="details">
-                       <h4 class="info-text"> Let's start with the basic information</h4>
-                       <div class="row">
-                           @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                           <div class="col-sm-6">
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                       @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.SizeId, "Size", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.SizeId, Model.Sizes, "Select", htmlAttributes: new { @class = "form-control", @Name = "size" })
-                                       @Html.ValidationMessageFor(model => model.SizeId, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.ColorId, "Color", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.ColorId, Model.Colors, "Select", htmlAttributes: new { @class = "form-control", @Name = "color" })
-                                       @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select", htmlAttributes: new { @class = "form-control", @Name = "category" })
-                                       @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @Name = "price" } })
-                                       @Html.ValidationMessageFor(model => model.Price, "Required", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                           </div>
-
-                           <div class="col-sm-6">
-                               
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.Gender, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.Gender, Model.Genders, "Select", htmlAttributes: new { @class = "form-control", @Name = "gender" })
-                                       @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.FabricId, "FabricId", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.FabricId, Model.Fabrics, "Select", htmlAttributes: new { @class = "form-control", @Name = "fabric" })
-                                       @Html.ValidationMessageFor(model => model.FabricId, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.ConditionId, "ConditionId", htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.DropDownListFor(x => x.ConditionId, Model.Conditions, "Select", htmlAttributes: new { @class = "form-control" , @Name = "condition"})
-                                       @Html.ValidationMessageFor(model => model.ConditionId, "", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                               <div class="form-group">
-                                   @Html.LabelFor(model => model.PieceCount, htmlAttributes: new { @class = "control-label col-md-2" })
-                                   <div class="col-md-10">
-                                       @Html.EditorFor(model => model.PieceCount, new { htmlAttributes = new { @class = "form-control", @Name = "pieces" } })
-                                       @Html.ValidationMessageFor(model => model.PieceCount, "Required", new { @class = "text-danger" })
-                                   </div>
-                               </div>
-
-                           </div>
-
-                       </div>
-                       
-                     </div>
-                   <div class="tab-pane" id="account">
-                       <h4 class="info-text"> Upload photos of your dress </h4>
-                       <div class="picture-container" style="display:none">
-                           <div class="picture">
-                               <img src="/wizard/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
-                               @*<input type="file" id="wizard-picture">*@                               
-                           </div>
-                           @*<input id="wizard-picture" name="input2[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true">*@
-                           
-                           <h6>Choose Picture</h6>
-                       </div>
-                       <div class="form-group">
-                           <div class="file-input file-input-ajax-new">
-                               <div class="file-preview ">
-                                   <div class="close fileinput-remove">×</div>
-                                   <div class=" file-drop-zone">
-                                       <div class="file-drop-zone-title">Drag &amp; drop files here …</div>
-                                       <div class="file-preview-thumbnails">
-                                       </div>
-                                       <div class="clearfix"></div>    <div class="file-preview-status text-center text-success"></div>
-                                       <div class="kv-fileinput-error file-error-message" style="display: none;"></div>
-                                   </div>
-                               </div>
-                               <div class="kv-upload-progress hide">
-                                   <div class="progress">
-                                       <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%;">
-                                           0%
+              @using (Html.BeginForm()) { 
+                  @Html.AntiForgeryToken()
+                   <ul class="nav nav-pills">
+                       <li class="active"><a href="#details" data-toggle="tab" aria-expanded="true">Details</a></li>
+                       <li><a href="#photos" data-toggle="tab">Photos</a></li>
+                       <li><a href="#address" data-toggle="tab">Review</a></li>
+                   </ul>
+                   <div class="tab-content">
+                       <div class="tab-pane active" id="details">
+                           <h4 class="info-text"> Let's start with the basic information</h4>
+                           <div class="row">
+                               @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                               <div class="col-sm-6">
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                           @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                        </div>
                                    </div>
-                               </div>
-                               <div class="input-group ">
-                                   <div tabindex="500" class="form-control file-caption  kv-fileinput-caption">
-                                       <div class="file-caption-name"></div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.SizeId, "Size", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.SizeId, Model.Sizes, "Select", htmlAttributes: new { @class = "form-control"})
+                                           @Html.ValidationMessageFor(model => model.SizeId, "", new { @class = "text-danger" })
+                                       </div>
                                    </div>
 
-                                   <div class="input-group-btn">
-                                       <button type="button" tabindex="500" title="Clear selected files" class="btn btn-default fileinput-remove fileinput-remove-button"><i class="glyphicon glyphicon-trash"></i> <span class="hidden-xs">Remove</span></button>
-                                       <button type="button" tabindex="500" title="Abort ongoing upload" class="btn btn-default hide fileinput-cancel fileinput-cancel-button"><i class="glyphicon glyphicon-ban-circle"></i> <span class="hidden-xs">Cancel</span></button>
-                                       <a href="#" tabindex="500" title="Upload selected files" class="btn btn-default fileinput-upload fileinput-upload-button"><i class="glyphicon glyphicon-upload"></i> <span class="hidden-xs">Upload</span></a>
-                                       <div tabindex="500" class="btn btn-primary btn-file"><i class="glyphicon glyphicon-folder-open"></i> <span class="hidden-xs">Browse …</span><input id="file-1" type="file" multiple="" class="file" data-overwrite-initial="false" data-min-file-count="2"></div>
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.ColorId, "Color", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.ColorId, Model.Colors, "Select", htmlAttributes: new { @class = "form-control" })
+                                           @Html.ValidationMessageFor(model => model.ColorId, "", new { @class = "text-danger" })
+                                       </div>
                                    </div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.CategoryId, Model.Categories, "Select", htmlAttributes: new { @class = "form-control" })
+                                           @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                           @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
                                </div>
+
+                               <div class="col-sm-6">
+
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.Gender, "Gender", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.Gender, Model.Genders, "Select", htmlAttributes: new { @class = "form-control" })
+                                           @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.FabricId, "FabricId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.FabricId, Model.Fabrics, "Select", htmlAttributes: new { @class = "form-control" })
+                                           @Html.ValidationMessageFor(model => model.FabricId, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.ConditionId, "ConditionId", htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.DropDownListFor(x => x.ConditionId, Model.Conditions, "Select", htmlAttributes: new { @class = "form-control"})
+                                           @Html.ValidationMessageFor(model => model.ConditionId, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
+                                   <div class="form-group">
+                                       @Html.LabelFor(model => model.PieceCount, htmlAttributes: new { @class = "control-label col-md-2" })
+                                       <div class="col-md-10">
+                                           @Html.EditorFor(model => model.PieceCount, new { htmlAttributes = new { @class = "form-control" } })
+                                           @Html.ValidationMessageFor(model => model.PieceCount, "", new { @class = "text-danger" })
+                                       </div>
+                                   </div>
+
+                               </div>
+
+                           </div>
+
+                       </div>
+                       <div class="tab-pane" id="photos">
+                           <h4 class="info-text"> Upload photos of your dress </h4>
+                           <div class="picture-container" style="display:none">
+                               <div class="picture">
+                                   <img src="/wizard/assets/img/default-avatar.png" class="picture-src" id="wizardPicturePreview" title="">
+                                   @*<input type="file" id="wizard-picture">*@
+                               </div>
+                               @*<input id="wizard-picture" name="input2[]" type="file" class="file" multiple data-show-upload="false" data-show-caption="true">*@
+
+                               <h6>Choose Picture</h6>
+                           </div>
+
+                           <div class="form-group">
+                               @*<input id="input-1" type="file" class="file">
+
+                        <input id="input-1a" type="file" class="file">*@
+
+                               <div id="fine-uploader-manual-trigger">
+                               </div>
+                               <script type="text/template" id="qq-template-manual-trigger">
+                                   <div class="qq-uploader-selector qq-uploader qq-gallery" qq-drop-area-text="Drop files here">
+                                       <div class="qq-total-progress-bar-container-selector qq-total-progress-bar-container">
+                                           <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar">
+                                           </div>
+                                       </div>
+                                       <div class="qq-upload-drop-area-selector qq-upload-drop-area" qq-hide-dropzone>
+                                           <span class="qq-upload-drop-area-text-selector"></span>
+                                       </div>
+                                       <div class="qq-upload-button-selector qq-upload-button">
+                                           <div>Select</div>
+                                       </div>
+                                       <button type="button" id="trigger-upload" class="btn qq-upload-button">
+                                           <i class="icon-upload icon-white"></i> Upload
+                                       </button>
+                                       <span class="qq-drop-processing-selector qq-drop-processing">
+                                           <span>Processing dropped files...</span>
+                                           <span class="qq-drop-processing-spinner-selector qq-drop-processing-spinner"></span>
+                                       </span>
+                                       <ul class="qq-upload-list-selector qq-upload-list" role="region" aria-live="polite" aria-relevant="additions removals">
+                                           <li>
+                                               <span role="status" class="qq-upload-status-text-selector qq-upload-status-text"></span>
+                                               <div class="qq-progress-bar-container-selector qq-progress-bar-container">
+                                                   <div role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" class="qq-progress-bar-selector qq-progress-bar"></div>
+                                               </div>
+                                               <span class="qq-upload-spinner-selector qq-upload-spinner"></span>
+                                               <div class="qq-thumbnail-wrapper">
+                                                   <img class="qq-thumbnail-selector" qq-max-size="120" qq-server-scale>
+                                               </div>
+                                               <button type="button" class="qq-upload-cancel-selector qq-upload-cancel">X</button>
+                                               <button type="button" class="qq-upload-retry-selector qq-upload-retry">
+                                                   <span class="qq-btn qq-retry-icon" aria-label="Retry"></span>
+                                                   Retry
+                                               </button>
+                                               <div class="qq-file-info">
+                                                   <div class="qq-file-name">
+                                                       <span class="qq-upload-file-selector qq-upload-file"></span>
+                                                       <span class="qq-edit-filename-icon-selector qq-btn qq-edit-filename-icon" aria-label="Edit filename"></span>
+                                                   </div>
+                                                   <input class="qq-edit-filename-selector qq-edit-filename" tabindex="0" type="text">
+                                                   <span class="qq-upload-size-selector qq-upload-size"></span>
+                                                   <button type="button" class="qq-btn qq-upload-delete-selector qq-upload-delete">
+                                                       <span class="qq-btn qq-delete-icon" aria-label="Delete"></span>
+                                                   </button>
+                                                   <button type="button" class="qq-btn qq-upload-pause-selector qq-upload-pause">
+                                                       <span class="qq-btn qq-pause-icon" aria-label="Pause"></span>
+                                                   </button>
+                                                   <button type="button" class="qq-btn qq-upload-continue-selector qq-upload-continue">
+                                                       <span class="qq-btn qq-continue-icon" aria-label="Continue"></span>
+                                                   </button>
+                                               </div>
+                                           </li>
+                                       </ul>
+                                       <dialog class="qq-alert-dialog-selector">
+                                           <div class="qq-dialog-message-selector"></div>
+                                           <div class="qq-dialog-buttons">
+                                               <button type="button" class="qq-cancel-button-selector">Close</button>
+                                           </div>
+                                       </dialog>
+                                       <dialog class="qq-confirm-dialog-selector">
+                                           <div class="qq-dialog-message-selector"></div>
+                                           <div class="qq-dialog-buttons">
+                                               <button type="button" class="qq-cancel-button-selector">No</button>
+                                               <button type="button" class="qq-ok-button-selector">Yes</button>
+                                           </div>
+                                       </dialog>
+                                       <dialog class="qq-prompt-dialog-selector">
+                                           <div class="qq-dialog-message-selector"></div>
+                                           <input type="text">
+                                           <div class="qq-dialog-buttons">
+                                               <button type="button" class="qq-cancel-button-selector">Cancel</button>
+                                               <button type="button" class="qq-ok-button-selector">Ok</button>
+                                           </div>
+                                       </dialog>
+                                   </div>
+                               </script>
                            </div>
                        </div>
-                   </div>
-                   <div class="tab-pane" id="address">
-                       <h4 class="info-text"> What are you doing? </h4>
-                   </div>
+                       <div class="tab-pane" id="address">
+                           <h4 class="info-text"> What are you doing? </h4>
+                       </div>
 
                    </div>
-               <div class="wizard-footer">
-                   <div class="pull-right">
-                       <input type="button" class="btn btn-next btn-fill btn-warning btn-wd btn-sm" name="next" value="Next">
-                       @*<input type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" value="Finish" style="display: none;">*@
-                       <input type="submit" value="Finish" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" style="display:none" />
+                   <div class="wizard-footer">
+                       <div class="pull-right">
+                           <input type="button" class="btn btn-next btn-fill btn-warning btn-wd btn-sm" name="next" value="Next">
+                           @*<input type="button" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" value="Finish" style="display: none;">*@
+                           <input type="submit" value="Finish" class="btn btn-finish btn-fill btn-warning btn-wd btn-sm" name="finish" style="display:none" />
+                       </div>
+                       <div class="pull-left">
+                           <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="Previous">
+                       </div>
+                       <div class="clearfix"></div>
                    </div>
-                   <div class="pull-left">
-                       <input type="button" class="btn btn-previous btn-fill btn-default btn-wd btn-sm disabled" name="previous" value="Previous">
-                   </div>
-                   <div class="clearfix"></div>
-               </div>
+              }
             </div>
+
         </div>
 
-                <div class="form-group" style="display:none">
+        <div class="form-group" style="display:none">
                     <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Create" class="btn btn-default"  />
                     </div>
                 </div>
+
+
   </div>
-}
+    
+
 
     <div class="row" style="display:none">
                 <div class="col-md-12">

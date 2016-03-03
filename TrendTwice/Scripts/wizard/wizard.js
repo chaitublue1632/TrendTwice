@@ -89,17 +89,19 @@ function validateFirstStep(){
     
     $(".wizard-card form").validate({
 		rules: {
-			size: "required",
-			color: "required",
+			SizeId: "required",
+			ColorId: "required",
 			title: "required",
 			description: "required",
 			brand: "required",
-			category: "required",
-            gender:"required",
+			CategoryId: "required",
+            ConditionId: "required",
+            Gender:"required",
 			email: {
 				required: true,
 				email: true
-			}
+			},
+            Price: "required"
 			
 /*  other possible input validations
 			,username: {
@@ -126,13 +128,13 @@ function validateFirstStep(){
 		},
 		messages: {
 			email: "Please enter a valid email address",
-			title: "Title is required field",
-			description: "Description is required field",
-			size: "Size is required field",
-			category: "Category is required field",
+			SizeId: "Size is required field",
+			CategoryId: "Category is required field",
 			brand: "Brand is required field",
-            gender: "Gender is required field",
-            color: "Color is required field"
+            Gender: "Gender is required field",
+            ColorId: "Color is required field",
+            Price: "Please input valid price",
+            ConditionId: "Condition is required field"
 
 /*   other posible validation messages
 			username: {

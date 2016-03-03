@@ -121,6 +121,6 @@ C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\bin\Microsoft.Owin.Security.
 C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\bin\System.Web.Http.Owin.xml
-C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\obj\Debug\TrendTwice.csprojResolveAssemblyReference.cache
 C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\obj\Debug\TrendTwice.dll
 C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\obj\Debug\TrendTwice.pdb
+C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\obj\Debug\TrendTwice.csprojResolveAssemblyReference.cache
