@@ -163,6 +163,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Code\HttpHelpers.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -220,8 +221,10 @@
     <Compile Include="Models\DressSize.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Listings.cs" />
+    <Compile Include="Models\Model1.cs" />
     <Compile Include="Models\Model6.cs" />
     <Compile Include="Models\Payments.cs" />
+    <Compile Include="Models\Photos.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Models\sysdiagrams.cs" />
     <Compile Include="Models\UserAddress.cs" />
@@ -253,6 +256,7 @@
     <Content Include="Content\fineuploader\processing.gif" />
     <Content Include="Content\fineuploader\retry.gif" />
     <Content Include="Content\fineuploader\trash.gif" />
+    <Content Include="Content\listingPage.css" />
     <Content Include="Content\wizard\gsdk-base.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

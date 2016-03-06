@@ -10,6 +10,7 @@ using System.Web.Mvc;
 using TrendTwice.Models;
 using TrendTwice.ViewModels;
 using FineUploader;
+using TrendTwice.App_Code;
 
 namespace TrendTwice.Controllers
 {
@@ -20,12 +21,13 @@ namespace TrendTwice.Controllers
         // GET: Dress
         public ActionResult Index()
         {
-            var dress = db.Dress.Include(d => d.DressCategories).
-                                 Include(d => d.DressColors).
-                                 Include(d => d.DressConditions).
-                                 Include(d => d.DressFabric).
-                                 Include(d => d.DressPhotos).
-                                 Include(d => d.DressSize);
+            var dress = db.Dress.
+                Include(d => d.DressCategories).
+                Include(d => d.DressColors).                
+                Include(d => d.DressConditions).
+                Include(d => d.DressFabric).
+                Include(d => d.DressSize);
+                             
             return View(dress.ToList());
         }
 
@@ -33,12 +35,11 @@ namespace TrendTwice.Controllers
         public FineUploaderResult Index(FineUpload upload, string extraParam1, int extraParam2=0)
         {
             // asp.net mvc will set extraParam1 and extraParam2 from the params object passed by Fine-Uploader
-
-            var dir = @"c:\upload\path";
+            var dir = @"c:\upload\" + HttpHelpers.GetCookie("TrendTwiceSessionId");
             var filePath = Path.Combine(dir, upload.Filename);
             try
             {
-                upload.SaveAs(filePath);
+                upload.SaveAs(filePath);                
             }
             catch (Exception ex)
             {
@@ -67,6 +68,12 @@ namespace TrendTwice.Controllers
         // GET: Dress/Create
         public ActionResult Create()
         {
+            if (string.IsNullOrEmpty(HttpHelpers.GetCookie("TrendTwiceSessionId")))
+            {
+                TimeSpan ts = new TimeSpan(1, 0, 0, 0);
+                HttpHelpers.SetCookie("TrendTwiceSessionId", HttpHelpers.GetSessionId(), ts);                
+            }
+
             DressViewModel viewModel = new DressViewModel();
             viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
             viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
@@ -74,7 +81,9 @@ namespace TrendTwice.Controllers
             viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
             viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
             viewModel.Genders = new SelectList(new List<SelectListItem>()
-            { new SelectListItem{ Text ="Male", Value = "1"}, new SelectListItem{ Text ="Female", Value = "2"}
+            {
+                new SelectListItem{ Text ="Male", Value = "1"},
+                new SelectListItem{ Text ="Female", Value = "2"}
             }, "Value", "Text", viewModel.Gender);
 
             return View(viewModel);
@@ -87,9 +96,16 @@ namespace TrendTwice.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(DressViewModel dressModel)
         {
+            var dir = @"c:\upload\" + TrendTwice.App_Code.HttpHelpers.GetCookie("TrendTwiceSessionId");
+            List<string> fileNames = new List<string>();
+            foreach (var file in Directory.GetFiles(dir))
+            {
+                fileNames.Add(file);
+            }            
 
             if (ModelState.IsValid)
-            {
+            {               
+
                 Dress newDress = new Dress
                 {
                     CategoryId = dressModel.CategoryId,
@@ -100,13 +116,27 @@ namespace TrendTwice.Controllers
                     Name = dressModel.Name,
                     Price = dressModel.Price,
                     Gender = dressModel.Gender,
-                    PieceCount = dressModel.PieceCount
-                };
-
+                    PieceCount = dressModel.PieceCount,
+                  
+                };                
                 db.Dress.Add(newDress);
                 db.SaveChanges();
 
                 int newDressId = newDress.Id;
+
+                int dressCount = 0;
+                while(dressCount < fileNames.Count)
+                {
+                    Photos dressPhoto = new Photos
+                    {
+                        Active = true,
+                        DressId = newDressId,                       
+                        Path = Path.GetFileName(fileNames[dressCount++])
+                    };                    
+                    db.Photos.Add(dressPhoto);
+                    db.SaveChanges();  
+                }                          
+
 
                 if (newDressId > 0)
                 {
@@ -118,15 +148,19 @@ namespace TrendTwice.Controllers
                         UserId = 1000,
                         Status = 1,
                         Likes = 0,
-                        CreatedDate = DateTime.Now
+                        CreatedDate = DateTime.Now,
+                        SessionId = HttpHelpers.GetCookie("TrendTwiceSessionId")
                     };
 
                     db.Listings.Add(newListing);
                     db.SaveChanges();
                 }
 
+                //Cleare session id - Force user to create new session
+                HttpHelpers.ClearCookie("TrendTwiceSessionId");
+
                 return RedirectToAction("Index");
-            }
+            }            
 
             DressViewModel viewModel = new DressViewModel();
             viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
@@ -141,7 +175,7 @@ namespace TrendTwice.Controllers
 
             return View(viewModel);
         }
-
+        
         // GET: Dress/Edit/5
         public ActionResult Edit(int? id)
         {

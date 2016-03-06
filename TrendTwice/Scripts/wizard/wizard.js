@@ -162,6 +162,7 @@ function validateFirstStep(){
     	//form is invalid
     	return false;
 	}
+
 	
 	return true;
 }
@@ -182,6 +183,29 @@ function validateSecondStep(){
     	console.log('invalid');
     	return false;
 	}
+
+	//var token = $('input[name="__RequestVerificationToken"]').val();
+	//var viewModel = '@Html.Raw(Json.Encode(Model))';
+
+    //$.ajax({
+    //    type: 'POST',
+    //    url: '/Dress/Create',
+    //    contentType: "application/json; charset=utf-8",
+    //    data: JSON.stringify(viewModel),
+    //    success: CreateDressSuccess,
+    //    error: CreateDressError
+    //});
+
+    //function CreateDressSuccess(response)
+    //{
+    //    alert(response);
+    //}
+
+    //function CreateDressError(response)
+    //{
+    //    alert(response);
+    //}
+
 	return true;
     
 }

@@ -13,6 +13,7 @@ namespace TrendTwice.Models
         public Dress()
         {
             Listings = new HashSet<Listings>();
+            Photos = new HashSet<Photos>();
         }
 
         public int Id { get; set; }
@@ -37,6 +38,8 @@ namespace TrendTwice.Models
 
         public string Name { get; set; }
 
+        public string Brand { get; set; }
+
         public virtual DressCategories DressCategories { get; set; }
 
         public virtual DressColors DressColors { get; set; }
@@ -47,9 +50,13 @@ namespace TrendTwice.Models
 
         public virtual DressSize DressSize { get; set; }
 
-        public virtual DressPhotos DressPhotos { get; set; }
+        //public virtual DressPhotos DressPhotos { get; set; }
+        //public virtual Photos Photos { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Listings> Listings { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Photos> Photos { get; set; }
     }
 }

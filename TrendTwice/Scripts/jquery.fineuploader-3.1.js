@@ -1578,7 +1578,7 @@ qq.FineUploader = function(o){
             showButton: false
         },
         showMessage: function(message){
-            alert(message);
+            //alert(message);
         }
     }, true);
 

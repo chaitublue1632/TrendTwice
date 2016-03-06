@@ -32,6 +32,8 @@ namespace TrendTwice.Models
 
         public DateTime CreatedDate { get; set; }
 
+        public string SessionId { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Checkout> Checkout { get; set; }
 
