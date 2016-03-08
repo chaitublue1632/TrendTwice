@@ -240,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.html" />
+    <Content Include="Content\Images\5.jpg" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -256,6 +257,8 @@
     <Content Include="Content\fineuploader\processing.gif" />
     <Content Include="Content\fineuploader\retry.gif" />
     <Content Include="Content\fineuploader\trash.gif" />
+    <Content Include="Content\flexslider.css" />
+    <Content Include="Content\Images\6.jpg" />
     <Content Include="Content\listingPage.css" />
     <Content Include="Content\wizard\gsdk-base.css" />
     <Content Include="favicon.ico" />

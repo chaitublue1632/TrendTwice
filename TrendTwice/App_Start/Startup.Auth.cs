@@ -55,9 +55,9 @@ namespace TrendTwice
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            app.UseFacebookAuthentication(
+                appId: "1690100891275012",
+                appSecret: "9e62a3709864f4d6fca0606ab2ea3a08");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{

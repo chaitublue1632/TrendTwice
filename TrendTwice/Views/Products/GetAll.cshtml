@@ -4,14 +4,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<br />
+<br />
+<div class="crflexslider carousel">
+    <div class="flex-viewport">
+        <ul class="slides" style="width:105%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
+            @foreach (var listing in Model)
+            {
+                var discountedPrice = @listing.Price - 10;
+                
+                <li style="width: 259.5px; float: left; display: block;">
+                    <div class="pro-box">
+                        <div class="img-box">
+                            <div class="add-btn-box"> 
+                            <a href="#"><i class="fa fa-shopping-cart"></i> Buy</a>
+                            <a href="#"><i class="fa fa-heart"></i> Wishlist</a> 
+                            <a href="#"><i class="fa fa-signal"></i> Compare</a>
+                          </div>
+                            <img src="~/Content/Images/6.jpg" />
+                        </div>
+                        <div class="pro-desc">
+                            <div class="clearfix">
+                                <div class="price"><span class="old-price">$@discountedPrice</span>$@listing.Price</div>
+                                <div class="ratingstar pull-right">
+                                    <i class="fa fa-star green"> </i>
+                                    <i class="fa fa-star green"> </i>
+                                    <i class="fa fa-star-half-full green"> </i>
+                                    <i class="fa fa-star-half-full green"></i>
+                                    <i class="fa fa-star-o green"></i>
+                                </div>
+                            </div>
+                            <div class="pro-name">
+                                <a href="#"></a>
+                                Color: @listing.Color
+                                <br />
+                                Condition: @listing.Condition
+                                <br />
+                                Size: @listing.Size
+                            </div>
+                            
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
 
-@foreach (var listing in Model)
-{
-     <p>
-     Condition:  @listing.Condition
-         <br />
-     Price: @listing.Price
-         <br />
-     Size: @listing.Size
-     </p> 
-}

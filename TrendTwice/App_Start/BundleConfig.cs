@@ -30,7 +30,9 @@ namespace TrendTwice
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/Site.css",
-                      "~/Content/custom.css"));
+                      "~/Content/custom.css",
+                      "~/Content/flexslider.css",
+                      "~/Content/listingPage.css"));
 
             bundles.Add(new StyleBundle("~/Content/wizard").Include(
                        "~/Content/wizard/gsdk-base.css"));

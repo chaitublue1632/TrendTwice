@@ -19,7 +19,9 @@ namespace TrendTwice.Services
                     Color = y.Dress.DressColors.Name,
                     ListingId = y.ListingId,
                     Size = y.Dress.DressSize.Name,
-                    Condition = y.Dress.DressConditions.Name
+                    Condition = y.Dress.DressConditions.Name,
+                    Category = y.Dress.DressCategories.Name,
+                    PhotoUrls = y.Dress.Photos.Select(x => x.Path).ToList()            
                 }).ToList();
             }
             return allListings;
