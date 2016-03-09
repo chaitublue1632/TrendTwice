@@ -10,6 +10,7 @@ namespace TrendTwice.Models
         public int ListingId { get; set; }
         public string Color { get; set; }
         public string Description { get; set; }
+        public string DressName { get; set; }
         public double Price { get; set; }
         public string Size {get;set;}
         public string Condition { get; set; }

@@ -21,7 +21,8 @@ namespace TrendTwice.Services
                     Size = y.Dress.DressSize.Name,
                     Condition = y.Dress.DressConditions.Name,
                     Category = y.Dress.DressCategories.Name,
-                    PhotoUrls = y.Dress.Photos.Select(x => x.Path).ToList()            
+                    PhotoUrls = y.Dress.Photos.Select(x => x.Path).ToList(),
+                    DressName = y.Dress.Name
                 }).ToList();
             }
             return allListings;

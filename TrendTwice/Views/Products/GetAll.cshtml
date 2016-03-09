@@ -11,38 +11,49 @@
         <ul class="slides" style="width:105%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
             @foreach (var listing in Model)
             {
-                var discountedPrice = @listing.Price - 10;
+                var discountedPrice = @listing.Price + 10;
                 
                 <li style="width: 259.5px; float: left; display: block;">
                     <div class="pro-box">
                         <div class="img-box">
                             <div class="add-btn-box"> 
-                            <a href="#"><i class="fa fa-shopping-cart"></i> Buy</a>
+                  
+                            @Html.ActionLink("Buy", "Index", "Buy", new { id = @listing.ListingId }, null); 
+                            <a href="~/Buy/Index/"@listing.ListingId><i class="fa fa-shopping-cart"></i> Buy</a>
                             <a href="#"><i class="fa fa-heart"></i> Wishlist</a> 
-                            <a href="#"><i class="fa fa-signal"></i> Compare</a>
+                            <a href="#"><i class="fa fa-signal"></i> Details</a>
                           </div>
+                            @if(@listing.Price == 55)
+                            { 
                             <img src="~/Content/Images/6.jpg" />
+                            }
+                            @if (@listing.Price != 55)
+                            {
+                                <img src="~/Content/Images/5.jpg" />
+                            }
                         </div>
                         <div class="pro-desc">
                             <div class="clearfix">
                                 <div class="price"><span class="old-price">$@discountedPrice</span>$@listing.Price</div>
-                                <div class="ratingstar pull-right">
-                                    <i class="fa fa-star green"> </i>
-                                    <i class="fa fa-star green"> </i>
-                                    <i class="fa fa-star-half-full green"> </i>
-                                    <i class="fa fa-star-half-full green"></i>
-                                    <i class="fa fa-star-o green"></i>
+                                <div class="ratingstar pull-right">                                   
                                 </div>
                             </div>
                             <div class="pro-name">
-                                <a href="#"></a>
-                                Color: @listing.Color
-                                <br />
-                                Condition: @listing.Condition
-                                <br />
-                                Size: @listing.Size
+                                <a href="#">
+                                    @if (@listing.DressName == null)
+                                    {
+                                        <span>New</span>
+                                    }
+                                    else
+                                    {
+                                        @listing.DressName
+                                    }
+                                </a><br />
+                                <span class="label label-info">@listing.Color</span>
+                                <span class="label label-info">@listing.Condition</span>
+                                <span class="label label-info">@listing.Size</span>
                             </div>
-                            
+                           
                         </div>
                     </div>
                 </li>
