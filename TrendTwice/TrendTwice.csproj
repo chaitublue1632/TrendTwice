@@ -237,10 +237,12 @@
     <Compile Include="Services\DressRepository.cs" />
     <Compile Include="Services\ProductsRepository.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\DressViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AboutUs.html" />
+    <Content Include="Content\creditcard.css" />
     <Content Include="Content\Images\5.jpg" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
@@ -293,6 +295,10 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\checkout\payment.js" />
+    <Content Include="Scripts\checkout\paymentValidation.js" />
+    <Content Include="Scripts\checkout\stripe.js" />
+    <Content Include="Scripts\checkout\stripeValidation.js" />
     <Content Include="Scripts\common.js" />
     <Content Include="Scripts\facebookLogin.js" />
     <Content Include="Scripts\fileinput\fileinput.js" />
@@ -371,9 +377,11 @@
     <Content Include="Views\Dress\Index.cshtml" />
     <Content Include="Views\About\Index.cshtml" />
     <Content Include="Views\Buy\Index.cshtml" />
+    <Content Include="Views\Buy\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />
+    <Folder Include="Content\checkout\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
