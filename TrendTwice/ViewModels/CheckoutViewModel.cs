@@ -8,7 +8,8 @@ namespace TrendTwice.ViewModels
 {
     public class CheckoutViewModel
     {
-        public Sale saleItem { get; set; }
-        public Checkout checkout { get; set; }
+        public Sale SaleItem { get; set; }
+        public Checkout Checkout { get; set; }
+        public CreditCard CreditCard { get; set; }
     }
 }

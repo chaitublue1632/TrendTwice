@@ -10,6 +10,7 @@ namespace TrendTwice.Models
     {
         [Key]
         [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PaymentId { get; set; }
 
         [Key]
@@ -30,11 +31,13 @@ namespace TrendTwice.Models
         [Column(Order = 4)]
         public bool HasFailed { get; set; }
 
+        public bool IsSuccess { get; set; }
+
         public DateTime? DateStamp { get; set; }
 
-        [Key]
-        [Column(Order = 5)]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ListingId { get; set; }
+        //[Key]
+        //[Column(Order = 5)]
+        //[DatabaseGenerated(DatabaseGeneratedOption.None)]
+        //public int ListingId { get; set; }
     }
 }

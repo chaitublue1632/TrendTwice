@@ -32,7 +32,7 @@ namespace TrendTwice.Controllers
         {
             Sale selectedItem = _repository.GetListingById(listingId);
             CheckoutViewModel cvm = new CheckoutViewModel();
-            cvm.saleItem = selectedItem;
+            cvm.SaleItem = selectedItem;
             string sessionId = HttpHelpers.GetCookie("TrendTwiceSessionId");
             Checkout existingCheckout = db.Checkout
                                         .Where(x => x.SessionId == sessionId && x.ListingId == listingId)
@@ -51,14 +51,33 @@ namespace TrendTwice.Controllers
                 db.Checkout.Add(newCheckout);
                 db.SaveChanges();
                 int checkoutId = newCheckout.CheckoutId;
-                cvm.checkout = newCheckout;
+                cvm.Checkout = newCheckout;
             }
             else
             {
-                cvm.checkout = existingCheckout;
+                cvm.Checkout = existingCheckout;
             }            
             
             return View(cvm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Pay(CheckoutViewModel checkoutViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                Payments payment = new Payments
+                {
+                    Amount = checkoutViewModel.CreditCard.Amount,
+                    CheckoutId = checkoutViewModel.Checkout.CheckoutId,
+                    HasFailed = false,
+                    PaymentType = 1
+                };
+                db.Payments.Add(payment);
+                db.SaveChanges();
+            }
+            return View();
         }
     }
 }
