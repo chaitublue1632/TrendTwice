@@ -22,7 +22,8 @@ namespace TrendTwice.Services
                     Condition = y.Dress.DressConditions.Name,
                     Category = y.Dress.DressCategories.Name,
                     PhotoUrls = y.Dress.Photos.Select(x => x.Path).ToList(),
-                    DressName = y.Dress.Name
+                    DressName = y.Dress.Name,
+                    SessionId = y.SessionId
                 }).ToList();
             }
             return allListings;
@@ -39,9 +40,13 @@ namespace TrendTwice.Services
                     Color = y.Dress.DressColors.Name,
                     ListingId = y.ListingId,
                     Size = y.Dress.DressSize.Name,
-                    Condition = y.Dress.DressConditions.Name
+                    Condition = y.Dress.DressConditions.Name,   
+                    PhotoUrls = y.Dress.Photos.Select(x => x.Path).ToList(),
+                    DressName = y.Dress.Name,
+                    SessionId = y.SessionId
                 }).FirstOrDefault();
             }
+
             return listing;
         }
     }

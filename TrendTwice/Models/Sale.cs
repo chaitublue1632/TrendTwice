@@ -15,6 +15,7 @@ namespace TrendTwice.Models
         public string Size {get;set;}
         public string Condition { get; set; }
         public string Category { get; set; }
+        public string SessionId { get; set; }
         public List<string> PhotoUrls { get; set; }
     }
 }

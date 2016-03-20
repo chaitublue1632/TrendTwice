@@ -20,13 +20,14 @@
                             <div class="add-btn-box"> 
                   
                             @Html.ActionLink("Buy", "Index", "Buy", new { id = @listing.ListingId }, null); 
-                            <a href="~/Buy/Index/"@listing.ListingId><i class="fa fa-shopping-cart"></i> Buy</a>
+                            @*<a href="~/Buy/Index/"@listing.ListingId><i class="fa fa-shopping-cart"></i> Buy</a>*@
                             <a href="#"><i class="fa fa-heart"></i> Wishlist</a> 
                             <a href="#"><i class="fa fa-signal"></i> Details</a>
                           </div>
-                            @if(@listing.Price == 55)
+                            @if(@listing.Price == 55 && @listing.PhotoUrls.Count > 0)
                             { 
-                            <img src="~/Content/Images/6.jpg" />
+                            @*<img src="~/Content/Images/6.jpg" />*@
+                            <img src="@Url.Content("~/Content/Images/" + @listing.SessionId + "/" + @listing.PhotoUrls[0])" />
                             }
                             @if (@listing.Price != 55)
                             {

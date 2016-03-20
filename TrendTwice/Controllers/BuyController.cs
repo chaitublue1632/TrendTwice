@@ -76,7 +76,17 @@ namespace TrendTwice.Controllers
                 };
                 db.Payments.Add(payment);
                 db.SaveChanges();
+                return View();
             }
+            else
+            {
+                return View("Checkout", checkoutViewModel);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Pay()
+        {
             return View();
         }
     }

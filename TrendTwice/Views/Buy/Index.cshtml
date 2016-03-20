@@ -11,13 +11,20 @@
 <div class="container">
     <div class="row">
         <div class="col-md-1 col-lg-1">
-            <img src="~/Content/Images/5.jpg" style="height:70px; padding-bottom:10px" />
-            <img src="~/Content/Images/5.jpg" style="height:70px; padding-bottom:10px" />
-            <img src="~/Content/Images/5.jpg" style="height:70px; padding-bottom:10px" />
-            <img src="~/Content/Images/5.jpg" style="height:70px; padding-bottom:10px" />
+            @foreach (var path in @Model.PhotoUrls)
+            {
+                <img src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + path)" style="height:70px; padding-bottom:10px" />
+            }
         </div>
         <div class="col-md-4 col-lg-6">
-            <img src="~/Content/Images/5.jpg" style="padding-left:10px; height:300px" />
+            @if(@Model.PhotoUrls != null && @Model.PhotoUrls.Count > 0)
+            {
+              <img src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + @Model.PhotoUrls[0])" style="height:350px; padding-bottom:10px" />
+            }
+            else
+            {
+              <img src="~/Content/Images/5.jpg" style="padding-left:10px; height:300px" />
+            }
         </div>
         <div class="col-md-3 col-lg-5">
             <table class="table table-hover">

@@ -35,7 +35,8 @@ namespace TrendTwice.Controllers
         public FineUploaderResult Index(FineUpload upload, string extraParam1, int extraParam2=0)
         {
             // asp.net mvc will set extraParam1 and extraParam2 from the params object passed by Fine-Uploader
-            var dir = @"c:\upload\" + HttpHelpers.GetCookie("TrendTwiceSessionId");
+            //var dir = @"c:\upload\" + HttpHelpers.GetCookie("TrendTwiceSessionId");
+            var dir = @"C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\Content\Images\" + HttpHelpers.GetCookie("TrendTwiceSessionId");
             var filePath = Path.Combine(dir, upload.Filename);
             try
             {
@@ -96,12 +97,16 @@ namespace TrendTwice.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(DressViewModel dressModel)
         {
-            var dir = @"c:\upload\" + TrendTwice.App_Code.HttpHelpers.GetCookie("TrendTwiceSessionId");
+            //var dir = @"c:\upload\" + TrendTwice.App_Code.HttpHelpers.GetCookie("TrendTwiceSessionId");
+            var dir = @"C:\Users\preethi\Source\Repos\TrendTwice\TrendTwice\Content\Images\" + HttpHelpers.GetCookie("TrendTwiceSessionId"); 
             List<string> fileNames = new List<string>();
-            foreach (var file in Directory.GetFiles(dir))
+            if (Directory.Exists(dir))
             {
-                fileNames.Add(file);
-            }            
+                foreach (var file in Directory.GetFiles(dir))
+                {
+                    fileNames.Add(file);
+                }
+            }
 
             if (ModelState.IsValid)
             {               
