@@ -13,13 +13,13 @@
         <div class="col-md-1 col-lg-1">
             @foreach (var path in @Model.PhotoUrls)
             {
-                <img src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + path)" style="height:70px; padding-bottom:10px" />
+                <img class="thumbnailImg" src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + path)" style="height:70px; padding-bottom:10px" />
             }
         </div>
         <div class="col-md-4 col-lg-6">
             @if(@Model.PhotoUrls != null && @Model.PhotoUrls.Count > 0)
             {
-              <img src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + @Model.PhotoUrls[0])" style="height:350px; padding-bottom:10px" />
+              <img class="mainImg" src="@Url.Content("~/Content/Images/" + @Model.SessionId + "/" + @Model.PhotoUrls[0])" style="height:350px; padding-bottom:10px" />
             }
             else
             {
@@ -52,6 +52,17 @@
             <button type="submit" class="btn btn-success btn-lg">Buy</button>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-1">
+            @*<input class="btn btn-default rotateRight" type="button" value="Rotate">*@
+        </div>
+    </div>
 </div>
  }
 
+@section Scripts
+{
+    @Scripts.Render("~/Scripts/jqueryRotate.js")
+    @Scripts.Render("~/Scripts/checkout/checkout.js")
+    @Scripts.Render("~/Scripts/checkout/jquery.zoom.min.js")
+}

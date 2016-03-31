@@ -76,7 +76,7 @@ namespace TrendTwice.Controllers
                 };
                 db.Payments.Add(payment);
                 db.SaveChanges();
-                return View();
+                return RedirectToAction("Finish");
             }
             else
             {
@@ -85,7 +85,7 @@ namespace TrendTwice.Controllers
         }
 
         [HttpGet]
-        public ActionResult Pay()
+        public ActionResult Finish()
         {
             return View();
         }

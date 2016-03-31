@@ -1,8 +1,12 @@
-﻿@model  IEnumerable<TrendTwice.Models.Sale>
-
-@{
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@model  IEnumerable<TrendTwice.Models.Sale>
+@{
+    ViewBag.Title = "Trend Twice - Browse";
+}
+
 
 @Styles.Render("~/Content/ListingPage")
 <br />
@@ -13,21 +17,21 @@
             @foreach (var listing in Model)
             {
                 var discountedPrice = @listing.Price + 10;
-                
+
                 <li style="width: 259.5px; float: left; display: block;">
                     <div class="pro-box">
                         <div class="img-box">
-                            <div class="add-btn-box"> 
-                  
-                            @Html.ActionLink("Buy", "Index", "Buy", new { id = @listing.ListingId }, null); 
-                            @*<a href="~/Buy/Index/"@listing.ListingId><i class="fa fa-shopping-cart"></i> Buy</a>*@
-                            <a href="#"><i class="fa fa-heart"></i> Wishlist</a> 
-                            <a href="#"><i class="fa fa-signal"></i> Details</a>
-                          </div>
-                            @if(@listing.Price == 55 && @listing.PhotoUrls.Count > 0)
-                            { 
-                            @*<img src="~/Content/Images/6.jpg" />*@
-                            <img src="@Url.Content("~/Content/Images/" + @listing.SessionId + "/" + @listing.PhotoUrls[0])" />
+                            <div class="add-btn-box">
+
+                                @Html.ActionLink("Buy", "Index", "Buy", new { id = @listing.ListingId }, null);
+                                @*<a href="~/Buy/Index/"@listing.ListingId><i class="fa fa-shopping-cart"></i> Buy</a>*@
+                                <a href="#"><i class="fa fa-heart"></i> Wishlist</a>
+                                <a href="#"><i class="fa fa-signal"></i> Details</a>
+                            </div>
+                            @if (@listing.Price == 55 && @listing.PhotoUrls.Count > 0)
+                            {
+                                @*<img src="~/Content/Images/6.jpg" />*@
+                                <img src="@Url.Content("~/Content/Images/" + @listing.SessionId + "/" + @listing.PhotoUrls[0])" />
                             }
                             @if (@listing.Price != 55)
                             {
@@ -37,7 +41,7 @@
                         <div class="pro-desc">
                             <div class="clearfix">
                                 <div class="price"><span class="old-price">$@discountedPrice</span>$@listing.Price</div>
-                                <div class="ratingstar pull-right">                                   
+                                <div class="ratingstar pull-right">
                                 </div>
                             </div>
                             <div class="pro-name">
@@ -55,7 +59,7 @@
                                 <span class="label label-info">@listing.Condition</span>
                                 <span class="label label-info">@listing.Size</span>
                             </div>
-                           
+
                         </div>
                     </div>
                 </li>
@@ -63,4 +67,5 @@
         </ul>
     </div>
 </div>
+
 
