@@ -75,19 +75,19 @@ namespace TrendTwice.Controllers
                 HttpHelpers.SetCookie("TrendTwiceSessionId", HttpHelpers.GetSessionId(), ts);                
             }
 
-            DressViewModel viewModel = new DressViewModel();
-            viewModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", viewModel.CategoryId);
-            viewModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", viewModel.ConditionId);
-            viewModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", viewModel.FabricId);
-            viewModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", viewModel.ColorId);
-            viewModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", viewModel.SizeId);
-            viewModel.Genders = new SelectList(new List<SelectListItem>()
+            DressViewModel dvModel = new DressViewModel();
+            dvModel.Categories = new SelectList(db.DressCategories, "CategoryId", "Name", dvModel.CategoryId);
+            dvModel.Conditions = new SelectList(db.DressConditions, "ConditionId", "Name", dvModel.ConditionId);
+            dvModel.Fabrics = new SelectList(db.DressFabric, "FabricId", "Name", dvModel.FabricId);
+            dvModel.Colors = new SelectList(db.DressColors, "ColorId", "Name", dvModel.ColorId);
+            dvModel.Sizes = new SelectList(db.DressSize, "SizeId", "Name", dvModel.SizeId);
+            dvModel.Genders = new SelectList(new List<SelectListItem>()
             {
                 new SelectListItem{ Text ="Male", Value = "1"},
                 new SelectListItem{ Text ="Female", Value = "2"}
-            }, "Value", "Text", viewModel.Gender);
+            }, "Value", "Text", dvModel.Gender);
 
-            return View(viewModel);
+            return View(dvModel);
         }
 
         // POST: Dress/Create
